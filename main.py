@@ -15,8 +15,9 @@ all_forms = []
 def front_page():
     form = ToDoForm()
     if form.validate_on_submit():
-        all_forms.append(form)
-        return render_template("webpage.html", form=form)
+        task = form.input.data
+        all_forms.append(task)
+        return render_template("webpage.html", all_forms=all_forms, form=form)
     return render_template("webpage.html", form=form)
 
 

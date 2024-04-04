@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
+    <title>Daily To Do List</title>
 </head>
 <body>
-    <h1>To Do List</h1>
+    <h1>Daily To Do List</h1>
     <form method="POST" action="">
         {{ form.csrf_token }}
-        {{ form.checkmark(size=5) }} {{ form.input(size=20) }}     </form>
+        {{ form.input(size=20) }}
+    </form>
+    <p></p>
     {% if request.method == "POST" %}
+    {% for task in all_forms %}
         <form method="POST" action="">
             {{ form.csrf_token }}
-            {{ form.checkmark(size=5) }} {{ form.input(size=20) }} 
+            {{ form.checkmark(size=5) }} {{ task }}
         </form>
+    {% endfor %}
     {% endif %}
 </body>
 </html>
