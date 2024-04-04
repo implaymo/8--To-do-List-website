@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for
+from flask import Flask
 from flask import render_template
 from forms import ToDoForm
 import os
@@ -17,7 +17,8 @@ def front_page():
     if form.validate_on_submit():
         task = form.input.data
         all_forms.append(task)
-        return render_template("webpage.html", all_forms=all_forms, form=form)
+        form.input.data = '' 
+        return (render_template("webpage.html", all_forms=all_forms, form=form))
     return render_template("webpage.html", form=form)
 
 

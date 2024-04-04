@@ -4,4 +4,4 @@ from wtforms.validators import DataRequired
 
 class ToDoForm(FlaskForm):
     checkmark = BooleanField()
-    input = StringField('', validators=[DataRequired()])
+    input = StringField('', validators=[DataRequired()], render_kw={'autofocus': True})
