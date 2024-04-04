@@ -1,20 +1,14 @@
 from flask import Flask
 from flask import render_template
 from forms import ToDoForm
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
-
 
 @app.route("/", methods=["GET","POST"])
 def front_page():
     form = ToDoForm()
-    return render_template("webpage.html", form=form)    
+    return render_template("webpage.html", form=form)
 
 
 if __name__ == "__main__":
