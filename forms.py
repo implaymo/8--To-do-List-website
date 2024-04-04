@@ -3,5 +3,5 @@ from wtforms import StringField, BooleanField
 from wtforms.validators import DataRequired
 
 class ToDoForm(FlaskForm):
-    input = StringField('▪️', validators=[DataRequired()])
     checkmark = BooleanField()
+    input = StringField('', validators=[DataRequired()])

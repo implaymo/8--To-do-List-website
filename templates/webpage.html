@@ -7,9 +7,14 @@
 </head>
 <body>
     <h1>To Do List</h1>
-    <form method="POST" action="front_page">
+    <form method="POST" action="">
         {{ form.csrf_token }}
-        {{ form.input.label }} {{ form.input(size=20) }} {{ form.checkmark(size=5) }}
-    </form>
+        {{ form.checkmark(size=5) }} {{ form.input(size=20) }}     </form>
+    {% if request.method == "POST" %}
+        <form method="POST" action="">
+            {{ form.csrf_token }}
+            {{ form.checkmark(size=5) }} {{ form.input(size=20) }} 
+        </form>
+    {% endif %}
 </body>
 </html>
