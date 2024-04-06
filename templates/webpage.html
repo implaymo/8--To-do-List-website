@@ -12,13 +12,6 @@
         {{ form.input(size=20) }}
     </form>
     <p></p>
-    {% if request.method == "POST" %}
-    {% for task in all_forms %}
-        <form method="POST" action="">
-            {{ form.csrf_token }}
-            {{ form.checkmark(size=5) }} {{ task }}
-        </form>
-    {% endfor %}
-    {% endif %}
+        {{ task }}
 </body>
 </html>
