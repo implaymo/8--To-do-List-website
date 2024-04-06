@@ -12,6 +12,9 @@
         {{ form.input(size=20) }}
     </form>
     <p></p>
-        {{ task }}
+    {% for task in all_tasks %}
+        {{ task.task }}
+        <p></p>
+    {% endfor %}
 </body>
 </html>
