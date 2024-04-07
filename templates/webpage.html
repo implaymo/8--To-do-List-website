@@ -25,17 +25,18 @@
     <form method="POST" action="">
         {{ form.csrf_token }}
         {{ form.input(size=20) }}
-    </form>
-    <p></p>
-    {% for task in all_tasks %}
+        <p></p>
+        {% for task in all_tasks %}
         <div class="task-container">
             <span>{{ task.task }}</span>
-            <form method="POST" action="">
-                {{ checkmark.checkmark }}
-            </form>
+            <input type="checkbox" name="checkmark_{{ task.id }}" {% if task.done %}checked{% endif %}>
         </div>
         <p></p>
-    {% endfor %}
+        {% endfor %}
+    </form>    
+<form method="post" action="{{ url_for('delete_button') }}">
+    <button type="submit">Delete</button>
+</form>
 </body>
 </html>
 

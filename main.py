@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask import render_template, redirect, url_for
-from forms import ToDoForm, CheckmarkForm
+from forms import ToDoForm
 import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
@@ -24,21 +24,30 @@ class Tasks(db.Model):
 @app.route("/", methods=["GET","POST"])
 def front_page():
     form = ToDoForm()
-    checkmark = CheckmarkForm()
+    all_tasks = Tasks.query.all()
     if request.method == "POST":
         task = Tasks(task = form.input.data,
-                    done = False)
-        db.session.add(task)
+                    done = True)
+        
+        db.session.add(task)      
         db.session.commit()
+
         # Clears input
         form.input.data = '' 
         return redirect(url_for("front_page"))
     
+
+    return render_template("webpage.html", form=form, all_tasks=all_tasks)
+
+
+@app.route("/delete", methods=["GET","POST"])
+def delete_button():
     all_tasks = Tasks.query.all()
-
-    return render_template("webpage.html", form=form, all_tasks=all_tasks, checkmark=checkmark)
-
-
+    if request.method == "POST":
+        for task in all_tasks:
+            db.session.delete(task)
+            db.session.commit()
+        return redirect(url_for('front_page'))
 
 
 if __name__ == "__main__":
