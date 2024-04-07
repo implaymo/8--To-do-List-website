@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask import render_template, redirect, url_for
-from forms import ToDoForm
+from forms import ToDoForm, CheckmarkForm
 import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
@@ -24,6 +24,7 @@ class Tasks(db.Model):
 @app.route("/", methods=["GET","POST"])
 def front_page():
     form = ToDoForm()
+    checkmark = CheckmarkForm()
     if request.method == "POST":
         task = Tasks(task = form.input.data,
                     done = False)
@@ -35,7 +36,7 @@ def front_page():
     
     all_tasks = Tasks.query.all()
 
-    return render_template("webpage.html", form=form, all_tasks=all_tasks)
+    return render_template("webpage.html", form=form, all_tasks=all_tasks, checkmark=checkmark)
 
 
 

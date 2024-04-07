@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily To Do List</title>
+    <style>
+        /* Center content vertically and horizontally */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+        }
+        .task-container {
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <h1>Daily To Do List</h1>
@@ -13,8 +28,14 @@
     </form>
     <p></p>
     {% for task in all_tasks %}
-        {{ task.task }}
+        <div class="task-container">
+            <span>{{ task.task }}</span>
+            <form method="POST" action="">
+                {{ checkmark.checkmark }}
+            </form>
+        </div>
         <p></p>
     {% endfor %}
 </body>
 </html>
+
