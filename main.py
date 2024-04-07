@@ -25,18 +25,6 @@ class Tasks(db.Model):
 def front_page():
     form = ToDoForm()
     all_tasks = Tasks.query.all()
-    if request.method == "POST":
-        task = Tasks(task = form.input.data,
-                    done = True)
-        
-        db.session.add(task)      
-        db.session.commit()
-
-        # Clears input
-        form.input.data = '' 
-        return redirect(url_for("front_page"))
-    
-
     return render_template("webpage.html", form=form, all_tasks=all_tasks)
 
 
@@ -48,7 +36,21 @@ def delete_button():
             db.session.delete(task)
             db.session.commit()
         return redirect(url_for('front_page'))
+    
+@app.route("/add", methods=["GET","POST"])
+def add_task():
+    form = ToDoForm()
+    if request.method == "POST":
+        task = Tasks(task = form.input.data,
+                    done = True)
+        
+        db.session.add(task)      
+        db.session.commit()
 
+        # Clears input
+        form.input.data = '' 
+        return redirect(url_for("front_page"))
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

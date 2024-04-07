@@ -22,7 +22,7 @@
 </head>
 <body>
     <h1>Daily To Do List</h1>
-    <form method="POST" action="">
+    <form method="POST" action="{{ url_for('add_task') }}">
         {{ form.csrf_token }}
         {{ form.input(size=20) }}
         <p></p>
