@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily To Do List</title>
+    <title>Weekly To Do List</title>
     <style>
         /* Center content vertically and horizontally */
         html, body {
@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-    <h1>Daily To Do List</h1>
+    <h1>Weekly To Do List</h1>
     <form method="POST" action="{{ url_for('add_task') }}">
         {{ form.csrf_token }}
         {{ form.input(size=20) }}
@@ -41,7 +41,11 @@
         <p></p>
         {% for task in all_tasks %}
             <div class="form-row">
-                <span>{{ task.task }}</span>
+                {% if task.done %}
+                <span style="color: green;">{{ task.task }}</span>
+                {% else %}
+                <span style="color: red;">{{ task.task }}</span>
+                {% endif %}
                 <form method="POST" action="{{ url_for('task_done', task_id=task.id) }}">
                     {{ form.csrf_token }}
                     <input type="hidden" name="task_id" value="{{ task.id }}">
