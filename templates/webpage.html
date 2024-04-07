@@ -42,7 +42,7 @@
         {% for task in all_tasks %}
             <div class="form-row">
                 <span>{{ task.task }}</span>
-                <form method="POST" action="">
+                <form method="POST" action="{{ url_for('task_done', task_id=task.id) }}">
                     {{ form.csrf_token }}
                     <input type="hidden" name="task_id" value="{{ task.id }}">
                     <button type="submit">✅</button>

@@ -59,6 +59,14 @@ def delete_one_task(task_id):
         db.session.commit()
         return redirect(url_for("front_page"))
     
+@app.route("/task_done/<task_id>", methods=["POST"])
+def task_done(task_id):
+    if request.method == "POST":
+        finished_task = Tasks.query.get(task_id)
+        finished_task.done = True
+        db.session.commit()
+        return redirect(url_for("front_page"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
