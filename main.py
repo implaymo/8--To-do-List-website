@@ -42,7 +42,7 @@ def add_task():
     form = ToDoForm()
     if request.method == "POST":
         task = Tasks(task = form.input.data,
-                    done = True)
+                    done = False)
         
         db.session.add(task)      
         db.session.commit()
@@ -51,11 +51,6 @@ def add_task():
         form.input.data = '' 
         return redirect(url_for("front_page"))
     
-
-@app.route("/checkmark", methods=["GET", "POST"])
-def check_checkmark():
-    form = ToDoForm()
-    pass
 
 if __name__ == "__main__":
     app.run(debug=True)

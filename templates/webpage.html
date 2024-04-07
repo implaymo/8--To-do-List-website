@@ -27,9 +27,10 @@
         {{ form.input(size=20) }}
         <p></p>
         {% for task in all_tasks %}
-        <div class="task-container">
+        <div class="button-row">
             <span>{{ task.task }}</span>
-            <input type="checkbox" name="checkmark_{{ task.id }}" {% if task.done %}checked{% endif %}>
+            <button action="{{ url_for('delete_button') }}">❌</button>
+            <button action="{{ url_for('delete_button') }}">✅</button>
         </div>
         <p></p>
         {% endfor %}
