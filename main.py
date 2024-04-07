@@ -52,5 +52,10 @@ def add_task():
         return redirect(url_for("front_page"))
     
 
+@app.route("/checkmark", methods=["GET", "POST"])
+def check_checkmark():
+    form = ToDoForm()
+    pass
+
 if __name__ == "__main__":
     app.run(debug=True)
