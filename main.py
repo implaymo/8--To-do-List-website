@@ -29,7 +29,7 @@ def front_page():
 
 
 @app.route("/delete", methods=["GET","POST"])
-def delete_button():
+def delete_all_tasks():
     all_tasks = Tasks.query.all()
     if request.method == "POST":
         for task in all_tasks:
@@ -49,6 +49,14 @@ def add_task():
 
         # Clears input
         form.input.data = '' 
+        return redirect(url_for("front_page"))
+    
+@app.route("/delete_one_task/<task_id>", methods=["POST"])
+def delete_one_task(task_id):
+    if request.method == "POST":
+        task_to_delete = Tasks.query.get(task_id)
+        db.session.delete(task_to_delete)
+        db.session.commit()
         return redirect(url_for("front_page"))
     
 

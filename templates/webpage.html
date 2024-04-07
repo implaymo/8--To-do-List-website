@@ -18,6 +18,18 @@
             display: flex;
             align-items: center;
         }
+    .form-row {
+        display: flex; /* Use flexbox layout */
+        align-items: center; /* Center items vertically */
+    }
+
+    .form-row form {
+        margin-right: 1px; /* Adjust spacing between forms */
+    }
+    .form-row span {
+        margin-right: 10px; /* Adjust spacing between task text and buttons */
+    }
+
     </style>
 </head>
 <body>
@@ -25,17 +37,25 @@
     <form method="POST" action="{{ url_for('add_task') }}">
         {{ form.csrf_token }}
         {{ form.input(size=20) }}
+    </form>  
         <p></p>
         {% for task in all_tasks %}
-        <div class="button-row">
-            <span>{{ task.task }}</span>
-            <button action="{{ url_for('delete_button') }}">❌</button>
-            <button action="{{ url_for('delete_button') }}">✅</button>
-        </div>
+            <div class="form-row">
+                <span>{{ task.task }}</span>
+                <form method="POST" action="">
+                    {{ form.csrf_token }}
+                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                    <button type="submit">✅</button>
+                </form>
+                <form method="POST" action="{{ url_for('delete_one_task', task_id=task.id) }}">
+                    {{ form.csrf_token }}
+                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                    <button type="submit">❌</button>
+                </form>
+            </div>              
         <p></p>
-        {% endfor %}
-    </form>    
-<form method="post" action="{{ url_for('delete_button') }}">
+        {% endfor %}  
+<form method="post" action="{{ url_for('delete_all_tasks') }}">
     <button type="submit">Delete</button>
 </form>
 </body>
